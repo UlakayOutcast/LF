@@ -62,19 +62,6 @@ end;
 
 function LF_OnEvent(event, arg1)
 	
-	-- arg1 = chat message
-	-- arg2 = author (name)
-	-- arg3 = language
-	-- arg4 = channel name with number ex: "1. General - Stormwind City"
-	-- arg5 = target 
-	-- arg6 = AFK/DND/GM "CHAT_FLAG_"..arg6 flags
-	-- arg7 = zone ID used for generic system channels (1 for General, 2 for Trade, 22 for LocalDefense, 23 for WorldDefense and 26 for LFG)
-	-- *not used for custom channels or if you joined an Out-Of-Zone channel ex: "General - Stormwind City"
-	-- arg8 = channel number
-	-- arg9 = channel name without number (this is _sometimes_ in lowercase)
-	-- zone is always current zone even if not the same as the channel name
-	-- arg11 = Chat lineID used for reporting the chat message.
-	-- arg12 = Sender GUID
 	if event == "CHAT_MSG_CHANNEL" and LF_CONFIG['spamChat']then 
 		local role0,role1,role2,role3,comma1,comma2,HC,man,sum="","","","","","","","","";local inst;local str=string.lower(arg1);
 		-- if arg8 == worldN or arg8==LFGN then 
