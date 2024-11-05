@@ -74,7 +74,7 @@ function LF_OnEvent(event, arg1)
 				if strfind(str,"deadmines") or strfind(arg1," DM") then inst="The Deadmines";end 
 				if strfind(str,"stockade") or strfind(str," stock") then inst="The Stockade";end 
 				if strfind(str,"shadowfang keep") or strfind(str," sfk") then inst="Shadowfang Keep";end 
-				if strfind(str,"blackfathom deep") or strfind(str," bfd") then inst="Blackfathom Geep";end 
+				if strfind(str,"blackfathom deep") or strfind(str," bfd") then inst="Blackfathom Deep";end 
 				if strfind(str,"scarlet monastery graveyard") or strfind(str," smg") or (strfind(arg1," SM") and (strfind(str,"grav") or strfind(str,"gy"))) then inst="Scarlet Monastery Graveyard";end 
 				if strfind(str,"scarlet monastery library") or strfind(str," sml ") or (strfind(arg1," SM") and strfind(str,"lib")) then inst="Scarlet Monastery Library";end 
 				if strfind(str,"gnomeregan") or strfind(str,"gnomer") then inst="Gnomeregan";end 
