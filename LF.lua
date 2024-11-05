@@ -1,4 +1,4 @@
-local LF_VERSION = "0.4.2"
+local LF_VERSION = "0.4.3"
 local worldN;
 local LFGN;
 local COLOR_GREY = '|caa88aa88'
@@ -24,6 +24,8 @@ function LF_OnLoad()
     if not LF_CONFIG then
         LF_CONFIG = {}
         LF_CONFIG['spamChat'] = true
+        LF_CONFIG['FilterLFA'] = true
+        LF_CONFIG['FilterLFM'] = true
         LF_CONFIG['FilterLFG'] = true
         LF_CONFIG['FilterName'] = "";
     end
@@ -45,7 +47,7 @@ function LF_OnLoad()
 			break;
 		end;
 	end;
-	DEFAULT_CHAT_FRAME:AddMessage("LF "..LF_VERSION.."loaded.");
+	DEFAULT_CHAT_FRAME:AddMessage("LF "..LF_VERSION.." loaded.");
 end;
 
 SLASH_LF1 = "/LF"
@@ -59,20 +61,52 @@ SlashCmdList["LF"] = function(cmd)
                 DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LF spam is off]")
             end;
         else 
-			if string.sub(string.lower(cmd), 1, 4) == "lfg" then 
+			if string.sub(string.lower(cmd), 0, 1) == "a" then 
+				LF_CONFIG['FilterLFA'] = not LF_CONFIG['FilterLFA']
+				if LF_CONFIG['FilterLFA'] then 
+					DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFAny spam is on]")
+				else 
+					DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFAny spam is off]")
+				end;
+			end;
+			if string.sub(string.lower(cmd), 0, 1) == "m" then 
+				LF_CONFIG['FilterLFM'] = not LF_CONFIG['FilterLFM']
+				if LF_CONFIG['FilterLFM'] then 
+					DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFM spam is on]")
+				else 
+					DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFM spam is off]")
+				end;
+			end;
+			if string.sub(string.lower(cmd), 0, 1) == "g" then 
 				LF_CONFIG['FilterLFG'] = not LF_CONFIG['FilterLFG']
 				if LF_CONFIG['FilterLFG'] then 
 					DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFG spam is on]")
 				else 
 					DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFG spam is off]")
 				end;
-			else 
-				if string.find(cmd,"nil") then 
+			end;
+			if string.sub(string.lower(cmd), 0, 1) == "i" then 
+				if LF_CONFIG['spamChat'] then 	DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LF spam is on]")
+				else  							DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LF spam is off]")
+				end;
+				if LF_CONFIG['FilterLFA'] then 	DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFAny spam is on]")
+				else  							DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFAny spam is off]")
+				end;
+				if LF_CONFIG['FilterLFM'] then 	DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFM spam is on]")
+				else  							DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFM spam is off]")
+				end;
+				if LF_CONFIG['FilterLFG'] then 	DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFG spam is on]")
+				else 							DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFG spam is off]")
+				end;
+				if LF_CONFIG['FilterName'] then DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[Filter set: "..LF_CONFIG['FilterName'].."]");end;
+			end;
+			if string.len(cmd) >= 2 then 
+				if string.find(string.lower(cmd),"nil") then 
 					LF_CONFIG['FilterName'] = false;
-					DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "Filter set: nil");
+					DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[Filter set: nil]");
 				else 
 					LF_CONFIG['FilterName'] = cmd;
-					DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "Filter set: "..LF_CONFIG['FilterName']);
+					DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[Filter set: "..LF_CONFIG['FilterName'].."]");
 				end;
 			end;
 		end;
@@ -137,7 +171,16 @@ function LF_OnEvent(event, arg1)
 				if strfind(str,"ruins") and (strfind(str,"ahn qiraj") or strfind(arg1,"AQ")) then inst="Ruins of Ahn'Qiraj";end;
 				if strfind(str,"naxxramas") or strfind(str," naxx") then inst="Naxxramas";end;
 				
-				if inst and not strfind(str,"lfg") and not strfind(str,"lfr") then 
+				local PrStr;
+				if LF_CONFIG['FilterLFA'] and not inst and not strfind(str,"lfg") and not strfind(str,"lfr") then 
+					PrStr=COLOR_WHITE.."|Hplayer:"..arg2.."|h["..arg2.."]|h|r".." - "..COLOR_HUNTER..arg1.."|r";
+				end;
+				
+				if LF_CONFIG['FilterLFG'] and not inst and ( strfind(str,"lfg") or strfind(str,"lfr") ) then 
+					PrStr=COLOR_WHITE.."|Hplayer:"..arg2.."|h["..arg2.."]|h|r".." - "..COLOR_HUNTER..arg1.."|r";
+				end;
+				
+				if LF_CONFIG['FilterLFM'] and inst and not strfind(str,"lfg") and not strfind(str,"lfr") then 
 					
 					inst=COLOR_HUNTER.." for "..COLOR_TURQUOISE..inst;
 					if strfind(str,"hc") then 
@@ -166,30 +209,23 @@ function LF_OnEvent(event, arg1)
 						sum=COLOR_ORANGE.." 'Can Summon' ";
 					end;
 					
-					-- DEFAULT_CHAT_FRAME:AddMessage("\124cff00ff99"..arg2.."\124r"
-					-- print("\124cff00ff99"..arg2.."\124r"
-					
-					local PrStr=COLOR_WHITE.."|Hplayer:"..arg2.."|h["..arg2.."]|h|r"
+					PrStr=COLOR_WHITE.."|Hplayer:"..arg2.."|h["..arg2.."]|h|r"
 					..COLOR_HUNTER.." is looking for a "
 					..HC..role0..role1..comma1..role2..comma2..role3..inst..man..sum;
-					if LF_CONFIG['FilterName'] then 
-						if string.find(PrStr,LF_CONFIG['FilterName']) or string.find(arg1,LF_CONFIG['FilterName']) then 
-							print(PrStr);
-						end;
-					else
-						print(PrStr);
-					end;
 					
 					-- print(COLOR_WHITE.."|Hplayer:"..arg2.."|h["..arg2.."]|h|r"
 					-- ..COLOR_HUNTER.." is looking for a "
 					-- ..HC..role0..role1..comma1..role2..comma2..role3..inst..man..sum
 					-- )
 				end;
-				
-				if LF_CONFIG['FilterLFG'] and ( strfind(str,"lfg") or strfind(str,"lfr") ) then 
-					-- DEFAULT_CHAT_FRAME:AddMessage("\124cffffffff"..arg2.."\124r".." - ".."\124cFFC2C050"..arg1.."\124r")
-					-- print("\124cff00ff99"..arg2.."\124r".." - ".."\124cFFC2C050"..arg1.."\124r")
-					print(COLOR_WHITE.."|Hplayer:"..arg2.."|h["..arg2.."]|h|r".." - "..COLOR_HUNTER..arg1.."|r")
+				if PrStr then 
+					if LF_CONFIG['FilterName'] then 
+						if string.find(string.lower(PrStr),string.lower(LF_CONFIG['FilterName'])) or string.find(string.lower(arg1),string.lower(LF_CONFIG['FilterName'])) then 
+							print(PrStr);
+						end;
+					else
+						print(PrStr);
+					end;
 				end;
 			end;
 		end;
