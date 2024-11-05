@@ -3,7 +3,7 @@
 ## Notes: Informs about the search from the world chat.
 ## Notes Ru: Информирует о поиске из world чата.
 ## Author: Ulukay Outcas.
-## Version: 0.4.2
+## Version: 0.4.3
 ## SavedVariables:
 ## SavedVariablesPerCharacter: LF_CONFIG
 ## Dependencies:
