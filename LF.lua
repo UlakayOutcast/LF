@@ -92,7 +92,7 @@ function LF_OnEvent(event, arg1)
 				if strfind(str,"scarlet monastery library") or strfind(str," sml ") or (strfind(arg1," SM") and strfind(str,"lib")) then inst="Scarlet Monastery Library";end 
 				if strfind(str,"gnomeregan") or strfind(str,"gnomer") then inst="Gnomeregan";end 
 				if strfind(str,"razorfen kraul") or strfind(str,"rfk") then inst="Razorfen Kraul";end 
-				if strfind(str,"crescent grove") or strfind(arg1," CG") or strfind(str,"crescent") then inst="The Crescent Grove";end 
+				if strfind(str,"crescent grove") or strfind(arg1," CG") or strfind(str," TCG") or strfind(str,"crescent") then inst="The Crescent Grove";end 
 				if strfind(str,"scarlet monastery armory") or strfind(str," sma") or (strfind(arg1," SM") and strfind(str,"arm")) then inst="Scarlet Monastery Armory";end 
 				if strfind(str,"scarlet monastery cathedral") or strfind(str," smc") or (strfind(arg1," SM") and strfind(str,"cath")) then inst="Scarlet Monastery Cathedral";end 
 				if strfind(str,"razorfen downs") or strfind(str," rfd") then inst="Razorfen Downs";end 
