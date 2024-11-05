@@ -133,7 +133,8 @@ function LF_OnEvent(event, arg1)
 					end 
 					if strfind(str,"dps") or strfind(str,"dd") then 
 						if strfind(str,"tank") or strfind(str,"heal") then comma2=", ";end;
-						role3=COLOR_DAMAGE.."Damage Dealer";
+						-- role3=COLOR_DAMAGE.."Damage Dealer";
+						role3=COLOR_DAMAGE.."Damage";
 					end 
 					if role1=="" and role2=="" and role3=="" then 
 						role0=COLOR_YELLOW.."anyone";
