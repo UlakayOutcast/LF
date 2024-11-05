@@ -3,6 +3,10 @@ Information in the main chat window about searches in the world chat on the TWOW
 
 To turn it on and off use /lf
 
-To enable or disable searcher display (LFG) /lf lfg
+To enable or disable searcher display (LFAny) /lf a
+
+To enable or disable searcher display (LFM) /lf m
+
+To enable or disable searcher display (LFG) /lf g
 
 To enable the filter /lf Text, to disable the filter /lf nil
