@@ -5,4 +5,4 @@ To turn it on and off use /lf
 
 To enable or disable searcher display (LFG) /lf lfg
 
-To enable the filter /lf TEXT, to disable the filter /lf nil
+To enable the filter /lf Text, to disable the filter /lf nil
