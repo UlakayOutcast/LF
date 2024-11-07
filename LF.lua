@@ -1,4 +1,4 @@
-local LF_VERSION = "0.4.3"
+local LF_VERSION = "0.4.4"
 local worldN;
 local LFGN;
 local COLOR_GREY = '|caa88aa88'
