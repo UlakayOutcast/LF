@@ -9,4 +9,6 @@ To enable or disable searcher display (LFM) /lf m
 
 To enable or disable searcher display (LFG) /lf g
 
+Display information about current switches /lf i
+
 To enable the filter /lf Text, to disable the filter /lf nil
