@@ -61,45 +61,47 @@ SlashCmdList["LF"] = function(cmd)
                 DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LF spam is off]")
             end;
         else 
-			if string.sub(string.lower(cmd), 0, 1) == "a" then 
-				LF_CONFIG['FilterLFA'] = not LF_CONFIG['FilterLFA']
-				if LF_CONFIG['FilterLFA'] then 
-					DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFAny spam is on]")
-				else 
-					DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFAny spam is off]")
+			if string.len(cmd) < 2 then 
+				if string.sub(string.lower(cmd), 0, 1) == "a" then 
+					LF_CONFIG['FilterLFA'] = not LF_CONFIG['FilterLFA']
+					if LF_CONFIG['FilterLFA'] then 
+						DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFAny spam is on]")
+					else 
+						DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFAny spam is off]")
+					end;
 				end;
-			end;
-			if string.sub(string.lower(cmd), 0, 1) == "m" then 
-				LF_CONFIG['FilterLFM'] = not LF_CONFIG['FilterLFM']
-				if LF_CONFIG['FilterLFM'] then 
-					DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFM spam is on]")
-				else 
-					DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFM spam is off]")
+				if string.sub(string.lower(cmd), 0, 1) == "m" then 
+					LF_CONFIG['FilterLFM'] = not LF_CONFIG['FilterLFM']
+					if LF_CONFIG['FilterLFM'] then 
+						DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFM spam is on]")
+					else 
+						DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFM spam is off]")
+					end;
 				end;
-			end;
-			if string.sub(string.lower(cmd), 0, 1) == "g" then 
-				LF_CONFIG['FilterLFG'] = not LF_CONFIG['FilterLFG']
-				if LF_CONFIG['FilterLFG'] then 
-					DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFG spam is on]")
-				else 
-					DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFG spam is off]")
+				if string.sub(string.lower(cmd), 0, 1) == "g" then 
+					LF_CONFIG['FilterLFG'] = not LF_CONFIG['FilterLFG']
+					if LF_CONFIG['FilterLFG'] then 
+						DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFG spam is on]")
+					else 
+						DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFG spam is off]")
+					end;
 				end;
-			end;
-			if string.sub(string.lower(cmd), 0, 1) == "i" then 
-				if LF_CONFIG['spamChat'] then 	DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LF spam is on]");
-				else  							DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LF spam is off]");
-				end;
-				if LF_CONFIG['FilterLFA'] then 	DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFAny spam is on]");
-				else  							DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFAny spam is off]");
-				end;
-				if LF_CONFIG['FilterLFM'] then 	DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFM spam is on]");
-				else  							DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFM spam is off]");
-				end;
-				if LF_CONFIG['FilterLFG'] then 	DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFG spam is on]");
-				else 							DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFG spam is off]");
-				end;
-				if LF_CONFIG['FilterName'] then DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[Filter set: "..LF_CONFIG['FilterName'].."]");
-				else 							DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[Filter set: nil]");
+				if string.sub(string.lower(cmd), 0, 1) == "i" then 
+					if LF_CONFIG['spamChat'] then 	DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LF spam is on]");
+					else  							DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LF spam is off]");
+					end;
+					if LF_CONFIG['FilterLFA'] then 	DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFAny spam is on]");
+					else  							DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFAny spam is off]");
+					end;
+					if LF_CONFIG['FilterLFM'] then 	DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFM spam is on]");
+					else  							DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFM spam is off]");
+					end;
+					if LF_CONFIG['FilterLFG'] then 	DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFG spam is on]");
+					else 							DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFG spam is off]");
+					end;
+					if LF_CONFIG['FilterName'] then DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[Filter set: "..LF_CONFIG['FilterName'].."]");
+					else 							DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[Filter set: nil]");
+					end;
 				end;
 			end;
 			if string.len(cmd) >= 2 then 
