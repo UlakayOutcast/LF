@@ -86,19 +86,21 @@ SlashCmdList["LF"] = function(cmd)
 				end;
 			end;
 			if string.sub(string.lower(cmd), 0, 1) == "i" then 
-				if LF_CONFIG['spamChat'] then 	DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LF spam is on]")
-				else  							DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LF spam is off]")
+				if LF_CONFIG['spamChat'] then 	DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LF spam is on]");
+				else  							DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LF spam is off]");
 				end;
-				if LF_CONFIG['FilterLFA'] then 	DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFAny spam is on]")
-				else  							DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFAny spam is off]")
+				if LF_CONFIG['FilterLFA'] then 	DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFAny spam is on]");
+				else  							DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFAny spam is off]");
 				end;
-				if LF_CONFIG['FilterLFM'] then 	DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFM spam is on]")
-				else  							DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFM spam is off]")
+				if LF_CONFIG['FilterLFM'] then 	DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFM spam is on]");
+				else  							DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFM spam is off]");
 				end;
-				if LF_CONFIG['FilterLFG'] then 	DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFG spam is on]")
-				else 							DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFG spam is off]")
+				if LF_CONFIG['FilterLFG'] then 	DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFG spam is on]");
+				else 							DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFG spam is off]");
 				end;
-				if LF_CONFIG['FilterName'] then DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[Filter set: "..LF_CONFIG['FilterName'].."]");end;
+				if LF_CONFIG['FilterName'] then DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[Filter set: "..LF_CONFIG['FilterName'].."]");
+				else 							DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[Filter set: nil]");
+				end;
 			end;
 			if string.len(cmd) >= 2 then 
 				if string.find(string.lower(cmd),"nil") then 
@@ -118,7 +120,7 @@ function LF_OnEvent(event, arg1)
 	if event == "CHAT_MSG_CHANNEL" and LF_CONFIG['spamChat']then 
 		local role0,role1,role2,role3,comma1,comma2,HC,man,sum="","","","","","","","","";local inst;local str=string.lower(arg1);
 		-- if arg8 == worldN or arg8==LFGN then 
-		if arg9 == "LookingForGroup" or arg9 == "world" then 
+		if arg9 == "LookingForGroup" or string.lower(arg9) == "world" then 
 			if (strfind(str,"lfm",1,true) or strfind(str,"lf.m",1,true) or strfind(str," lf ",1,true) or strfind(str,"looking for",1,true) or strfind(string.sub(str, 1, 2),"lf",1,true)) then 
 			-- DEFAULT_CHAT_FRAME:AddMessage("\124cff00ff99"..arg2.."\124r".." - ".."\124cFFC2C050"..arg1.."\124r")
 				-- arg1=string.lower(arg1);
