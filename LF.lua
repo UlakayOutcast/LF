@@ -27,6 +27,7 @@ function LF_OnLoad()
         LF_CONFIG['FilterLFA'] = true
         LF_CONFIG['FilterLFM'] = true
         LF_CONFIG['FilterLFG'] = true
+        LF_CONFIG['CHANGE'] = true
         LF_CONFIG['FilterName'] = "";
     end
 	
@@ -86,6 +87,14 @@ SlashCmdList["LF"] = function(cmd)
 						DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LFG spam is off]")
 					end;
 				end;
+				if string.sub(string.lower(cmd), 0, 1) == "c" then 
+					LF_CONFIG['CHANGE'] = not LF_CONFIG['CHANGE']
+					if LF_CONFIG['CHANGE'] then 
+						DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[Change is on]")
+					else 
+						DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[Change is off]")
+					end;
+				end;
 				if string.sub(string.lower(cmd), 0, 1) == "i" then 
 					if LF_CONFIG['spamChat'] then 	DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LF spam is on]");
 					else  							DEFAULT_CHAT_FRAME:AddMessage(COLOR_HUNTER .. "[LF spam is off]");
@@ -120,16 +129,16 @@ end;
 function LF_OnEvent(event, arg1)
 	
 	if event == "CHAT_MSG_CHANNEL" and LF_CONFIG['spamChat']then 
-		local role0,role1,role2,role3,comma1,comma2,HC,man,sum="","","","","","","","","";local inst;local str=string.lower(arg1);
+		local role0,role1,role2,role3,comma1,comma2,HC,man,sum,group="","","","","","","","","","";local inst;local str=string.lower(arg1);
 		-- if arg8 == worldN or arg8==LFGN then 
 		if arg9 == "LookingForGroup" or string.lower(arg9) == "world" then 
-			if (strfind(str,"lfm",1,true) or strfind(str,"lf.m",1,true) or strfind(str," lf ",1,true) or strfind(str,"looking for",1,true) or strfind(string.sub(str, 1, 2),"lf",1,true)) then 
+			if (strfind(str,"lfm",1,true) or strfind(str,"lf.m",1,true) or strfind(str,"looking for",1,true) or strfind(string.sub(str, 1, 2),"lf",1,true)) then 
 			-- DEFAULT_CHAT_FRAME:AddMessage("\124cff00ff99"..arg2.."\124r".." - ".."\124cFFC2C050"..arg1.."\124r")
 				-- arg1=string.lower(arg1);
 				if strfind(str,"ragefire chasm") or strfind(str," rfc") then inst="Ragefire Chasm";end;
 				if strfind(str,"wailing caverns") or strfind(arg1," WC") then inst="Wailing Caverns";end;
 				if strfind(str,"deadmines") or strfind(arg1," DM") then inst="The Deadmines";end;
-				if strfind(str,"stockade") or strfind(str," stock") then inst="The Stockade";end;
+				if strfind(str,"stockade") or strfind(str," stock") or strfind(str," stocks") then inst="The Stockade";end;
 				if strfind(str,"shadowfang keep") or strfind(str," sfk") then inst="Shadowfang Keep";end;
 				if strfind(str,"blackfathom deep") or strfind(str," bfd") then inst="Blackfathom Deep";end;
 				if strfind(str,"scarlet monastery graveyard") or strfind(str," smg") or (strfind(arg1," SM") and (strfind(str,"grav") or strfind(str,"gy"))) then inst="Scarlet Monastery Graveyard";end;
@@ -146,6 +155,7 @@ function LF_OnEvent(event, arg1)
 				if strfind(str,"maraudon purple") or (strfind(str," mara") and strfind(str,"purple")) then inst="Maraudon Purple";end;
 				if strfind(str,"maraudon princess") or (strfind(str,"mara") and strfind(str,"princess")) then inst="Maraudon Princess";end;
 				if strfind(str,"maraudon full") or (strfind(str," mara") and strfind(str,"full")) then inst="Maraudon Full";end;
+				if strfind(str,"maraudon full") or ( strfind(str," mara") and not strfind(str,"full") and not strfind(str,"orange") and not strfind(str,"purple") and not strfind(str,"princess") ) then inst="Maraudon";end;
 				if strfind(str,"temple of atal'hakkar") or strfind(arg1,"Sunken Temple") or strfind(arg1," ST") then inst="Temple of Atal'hakkar";end;
 				if strfind(str,"blackrock depths") or strfind(str," brd")then inst="Blackrock Depths";end;
 				if strfind(str,"blackrock depths arena") or (strfind(str," brd") and strfind(str,"arena")) then inst="Blackrock Depths Arena";end;
@@ -161,7 +171,7 @@ function LF_OnEvent(event, arg1)
 				if strfind(str,"scholomance") or strfind(str," scholo") then inst="Scholomance";end;
 				if strfind(str,"stratholme: undead district") or (strfind(str,"strat") and (strfind(str,"undead") or strfind(str,"ud"))) then inst="Stratholme: Undead district";end;
 				if strfind(str,"stratholme: scarlet bastion") or (strfind(str,"strat") and (strfind(str,"scarlet") or strfind(str,"bastion") or strfind(str,"liv"))) then inst="Stratholme: Scarlet bastion";end;
-				if strfind(str,"hateforge quarry") or strfind(arg1," HFQ") or strfind(str,"quarry") or (strfind(str,"hate") and strfind(str,"forge")) then inst="Hateforge Quarry";end;
+				if strfind(str,"hateforge quarry") or strfind(str," hfq") or strfind(str,"quarry") or (strfind(str,"hate") and strfind(str,"forge")) then inst="Hateforge Quarry";end;
 				if strfind(str,"karazhan") and strfind(str,"crypt") then inst="Karazhan crypt";end;
 				if strfind(str,"caverns of time") or strfind(str," cot") or strfind(str,"black morass") then inst="Caverns of time: Black Morass";end;
 				if strfind(str,"stormwind vault") or strfind(str," swv") or (strfind(str," sw") and strfind(str,"vault")) then inst="Stormwind Vault";end;
@@ -176,17 +186,19 @@ function LF_OnEvent(event, arg1)
 				if strfind(str,"naxxramas") or strfind(str," naxx") then inst="Naxxramas";end;
 				
 				local PrStr;
-				if LF_CONFIG['FilterLFA'] and not inst and not strfind(str,"lfg") and not strfind(str,"lfr") then 
+				-- if LF_CONFIG['FilterLFA'] and not inst and not strfind(str,"lfg") and not strfind(str,"lfr") then 
+				if (LF_CONFIG['FilterLFA'] and not inst) or not LF_CONFIG['CHANGE'] then 
 					PrStr=COLOR_WHITE.."|Hplayer:"..arg2.."|h["..arg2.."]|h|r".." - "..COLOR_HUNTER..arg1.."|r";
 				end;
 				
-				if LF_CONFIG['FilterLFG'] and not inst and ( strfind(str,"lfg") or strfind(str,"lfr") ) then 
-					PrStr=COLOR_WHITE.."|Hplayer:"..arg2.."|h["..arg2.."]|h|r".." - "..COLOR_HUNTER..arg1.."|r";
-				end;
+				-- if LF_CONFIG['FilterLFG'] and inst and ( strfind(str,"lfg") or strfind(str,"lfr") ) then 
+					-- PrStr=COLOR_WHITE.."|Hplayer:"..arg2.."|h["..arg2.."]|h|r".." - "..COLOR_HUNTER..arg1.."|r";
+				-- end;
 				
-				if LF_CONFIG['FilterLFM'] and inst and not strfind(str,"lfg") and not strfind(str,"lfr") then 
+				-- if LF_CONFIG['FilterLFM'] and inst and not strfind(str,"lfg") and not strfind(str,"lfr") then 
+				if LF_CONFIG['FilterLFM'] and inst and LF_CONFIG['CHANGE'] then 
 					
-					inst=COLOR_HUNTER.." for "..COLOR_TURQUOISE..inst;
+					inst=COLOR_HUNTER..", for "..COLOR_TURQUOISE..inst;
 					if strfind(str,"hc") then 
 						HC=COLOR_GREY.."HC ";
 					end;
@@ -212,9 +224,12 @@ function LF_OnEvent(event, arg1)
 					if (strfind(str,"have") or strfind(str,"can")) and (strfind(str,"summ") or strfind(str,"summon")) then 
 						sum=COLOR_ORANGE.." 'Can Summon' ";
 					end;
+					if strfind(str,"lfg") or strfind(str,"lfr") then 
+						group=COLOR_ORANGE.."group"..COLOR_HUNTER..", role: ";
+					end;
 					
 					PrStr=COLOR_WHITE.."|Hplayer:"..arg2.."|h["..arg2.."]|h|r"
-					..COLOR_HUNTER.." is looking for a "
+					..COLOR_HUNTER.." is looking for a "..group
 					..HC..role0..role1..comma1..role2..comma2..role3..inst..man..sum;
 					
 					-- print(COLOR_WHITE.."|Hplayer:"..arg2.."|h["..arg2.."]|h|r"
